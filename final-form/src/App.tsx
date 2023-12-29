@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Button, Grid, TextField } from "@mui/material";
+import { Form, Field } from "react-final-form";
+import { range } from "lodash";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const MyForm = () => (
+  <Form
+    onSubmit={(values) => console.log(values)}
+    render={({ handleSubmit }) => (
+      <form onSubmit={handleSubmit}>
+        <Grid container direction="column" spacing={1}>
+          {range(10).map((v) => (
+            <Grid item key={v}>
+              <Field name={`f${v}`}>
+                {({ input }) => <TextField label={v} {...input} />}
+              </Field>
+            </Grid>
+          ))}
+        </Grid>
+        <Button type="submit">Submit</Button>
+      </form>
+    )}
+  />
+);
 
-export default App;
+export default MyForm;
