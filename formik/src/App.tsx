@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Button, Grid, TextField } from "@mui/material";
+import { Formik } from "formik";
+import { range } from "lodash";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const initialValues = {
+  f0: "",
+  f1: "",
+  f2: "",
+  f3: "",
+  f4: "",
+  f5: "",
+  f6: "",
+  f7: "",
+  f8: "",
+  f9: "",
+};
 
-export default App;
+const Basic = () => (
+  <Formik
+    initialValues={initialValues}
+    onSubmit={(values) => console.log(values)}
+  >
+    {({ values, handleChange, handleSubmit }) => (
+      <form onSubmit={handleSubmit}>
+        <Grid container direction="column" spacing={1}>
+          {range(10).map((v) => (
+            <Grid item key={v}>
+              <TextField
+                label={v}
+                name={`f${v}`}
+                value={values[`f${v}` as keyof typeof initialValues]}
+                onChange={handleChange}
+              />
+            </Grid>
+          ))}
+        </Grid>
+        <Button type="submit">Submit</Button>
+      </form>
+    )}
+  </Formik>
+);
+
+export default Basic;
