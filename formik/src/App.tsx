@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Grid, TextField } from "@mui/material";
-import { FastField, FieldInputProps, Formik } from "formik";
+import { Button, Grid, TextField as MuiTextField } from "@mui/material";
+import { Formik } from "formik";
 import { range } from "lodash";
 
 const initialValues = {
@@ -16,6 +16,8 @@ const initialValues = {
   f9: "",
 };
 
+const TextField = React.memo(MuiTextField);
+
 const Basic = () => (
   <Formik
     initialValues={initialValues}
@@ -26,11 +28,12 @@ const Basic = () => (
         <Grid container direction="column" spacing={1}>
           {range(10).map((v) => (
             <Grid item key={v}>
-              <FastField name={`f${v}`}>
-                {({ field }: { field: FieldInputProps<`f${typeof v}`> }) => (
-                  <TextField label={v} {...field} />
-                )}
-              </FastField>
+              <TextField
+                label={v}
+                name={`f${v}`}
+                value={values[`f${v}` as keyof typeof initialValues]}
+                onChange={handleChange}
+              />
             </Grid>
           ))}
         </Grid>
