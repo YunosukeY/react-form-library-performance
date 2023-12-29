@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Button, Grid, TextField } from "@mui/material";
+import { Controller, useForm } from "react-hook-form";
+import { range } from "lodash";
 
-function App() {
+export default function App() {
+  const { control, handleSubmit } = useForm();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <Grid container direction="column" spacing={1}>
+        {range(10).map((v) => (
+          <Grid item key={v}>
+            <Controller
+              control={control}
+              name={`${v}`}
+              render={({ field }) => <TextField label={v} {...field} />}
+            />
+          </Grid>
+        ))}
+      </Grid>
+      <Button type="submit">Submit</Button>
+    </form>
   );
 }
-
-export default App;
