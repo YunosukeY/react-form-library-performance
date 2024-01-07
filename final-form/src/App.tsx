@@ -6,6 +6,7 @@ import { range } from "lodash";
 const MyForm = () => (
   <Form
     onSubmit={(values) => console.log(values)}
+    subscription={{}}
     render={({ handleSubmit }) => (
       <form onSubmit={handleSubmit}>
         <Grid container direction="column" spacing={1}>
